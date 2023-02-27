@@ -360,13 +360,13 @@ class EarlyStoppingTrainer:
         :return: List loss values.
         """
         for factor_num in range(1, batch.source.size(2)):
-            data_min = torch.min(batch.source[:, : factor_num])
-            data_max = torch.max(batch.source[:, : factor_num])
+            data_min = torch.min(batch.source[:, :, factor_num])
+            data_max = torch.max(batch.source[:, :, factor_num])
             print(f'Input batch: factor_num={factor_num} data_min={data_min} data_max={data_max}')
         batch = batch.load(device=self.device)
         for factor_num in range(1, batch.source.size(2)):
-            data_min = torch.min(batch.source[:, : factor_num])
-            data_max = torch.max(batch.source[:, : factor_num])
+            data_min = torch.min(batch.source[:, :, factor_num])
+            data_max = torch.max(batch.source[:, :, factor_num])
             print(f'Loaded batch: factor_num={factor_num} data_min={data_min} data_max={data_max}')
         with torch.cuda.amp.autocast(cache_enabled=False) if self.using_amp else utils.no_context():  # type: ignore
             # Forward + loss
