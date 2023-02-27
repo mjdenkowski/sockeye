@@ -129,11 +129,6 @@ class Embedding(Encoder):
             for i, (factor_embedding, factor_combination) in enumerate(zip(self.factor_embeds,
                                                                            self.factor_combinations), 1):
                 factor_data = data[:, :, i]
-                # Print min and max data values plus embedding table size
-                data_min = pt.min(factor_data).item()
-                data_max = pt.max(factor_data).item()
-                embedding_table_size = factor_embedding.weight.size(0)
-                print(f'factor_embedding lookup: data_min={data_min} data_max={data_max} embedding_table_size={embedding_table_size}')
                 factor_embedded = factor_embedding(factor_data)
                 if factor_combination == C.FACTORS_COMBINE_CONCAT:
                     concat_factors_embeds.append(factor_embedded)
